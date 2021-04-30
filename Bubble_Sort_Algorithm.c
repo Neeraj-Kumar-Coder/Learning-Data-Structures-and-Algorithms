@@ -15,7 +15,7 @@ void print_array(int *array, int size);
 int main(void)
 {
     int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
-    // int array[] = {2, 3, 4, 4, 5, 7, 21, 23, 34, 54, 54, 67, 76, 87};
+    // int array[] = {2, 3, 4, 4, 5, 7, 21, 23, 34, 54, 54, 67, 76, 87}; // Already sorted array
     int size = sizeof(array) / sizeof(int);
     bubbleSort(array, size);
     printf("Sorted array: ");
@@ -52,4 +52,5 @@ void print_array(int *array, int size)
     {
         printf("%d ", array[i]);
     }
+    printf("\n");
 }
