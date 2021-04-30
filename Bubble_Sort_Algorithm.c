@@ -14,7 +14,7 @@ void print_array(int *array, int size);
 
 int main(void)
 {
-    int array[] = {2, 3, 4, 54, 34, 67, 87, 54, 21, 23, 4, 76, 5, 7};
+    int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
     int size = sizeof(array) / sizeof(int);
     bubbleSort(array, size);
     printf("Sorted array: ");
@@ -26,7 +26,7 @@ void bubbleSort(int arr[], int size)
 {
     for (int i = 0; i < size - 1; i++) // For number of passes
     {
-        for (int j = i + 1; j < size; j++) // For number of comparisions
+        for (int j = 0; j < size - i - 1; j++) // For number of comparisions
         {
             if (arr[j] > arr[j + 1])
             {
