@@ -1,5 +1,14 @@
+/*
+    TIME COMPLEXITY = O(n^2)
+    BEST CASE TIME COMPLEXITY = O(nlog n)
+    SPACE COMPLEXITY =  O(log n)
+    STABLE = FALSE
+    RECURSIVE = TRUE
+    ADAPTIVE = FALSE
+    TYPE = INTERNAL
+*/
+
 #include <stdio.h>
-#include <stdlib.h>
 
 void print_array(int *array, int size);
 void quickSort(int *array, int low, int high);
