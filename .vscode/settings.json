@@ -3,6 +3,21 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "malloc.h": "c",
-        "mm_malloc.h": "c"
+        "mm_malloc.h": "c",
+        "climits": "c",
+        "cmath": "c",
+        "compare": "c",
+        "concepts": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "exception": "c",
+        "type_traits": "c",
+        "limits": "c",
+        "new": "c",
+        "*.tcc": "c",
+        "cstdint": "c",
+        "typeinfo": "c",
+        "limits.h": "c"
     }
 }

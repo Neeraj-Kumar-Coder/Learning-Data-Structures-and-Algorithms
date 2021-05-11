@@ -10,6 +10,8 @@ struct Node
 
 struct Node *insertNode(struct Node *root, int value);
 struct Node *deleteNode(struct Node *root, int value);
+struct Node *minValueNode(struct Node *node);
+struct Node *inOrderSuccessor(struct Node *root, int key);
 void preOrderTraversal(struct Node *root);
 void inOrderTraversal(struct Node *root);
 void postOrderTraversal(struct Node *root);
@@ -18,7 +20,7 @@ int main(void)
 {
     // Creating the root node
     struct Node *root = (struct Node *)malloc(sizeof(struct Node));
-    root->data = 100;
+    root->data = 40;
     root->left = root->right = NULL;
 
     int number_of_nodes, value;
@@ -33,6 +35,7 @@ int main(void)
     }
 
     inOrderTraversal(root);
+    printf("\n");
     return 0;
 }
 
@@ -45,13 +48,14 @@ struct Node *insertNode(struct Node *root, int value)
 
     while (root) // Searching the correct position for insertion
     {
-        previous = root;
         if (root->data < value)
         {
+            previous = root;
             root = root->right;
         }
         else if (root->data > value)
         {
+            previous = root;
             root = root->left;
         }
         else
@@ -77,37 +81,104 @@ struct Node *insertNode(struct Node *root, int value)
     }
 }
 
-struct Node *deleteNode(struct Node *root, int value)
+struct Node *minValueNode(struct Node *node)
 {
-    ;
+    struct Node *current = node;
+
+    while (current && current->left != NULL)
+        current = current->left;
+
+    return current;
+}
+
+struct Node *deleteNode(struct Node *root, int data)
+{
+    if (root == NULL)
+        return root;
+
+    if (data < root->data)
+        root->left = deleteNode(root->left, data);
+
+    else if (data > root->data)
+        root->right = deleteNode(root->right, data);
+
+    else
+    {
+        if (root->left == NULL)
+        {
+            struct Node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        struct Node *temp = minValueNode(root->right);
+
+        root->data = temp->data;
+
+        root->right = deleteNode(root->right, temp->data);
+    }
+    return root;
+}
+
+struct Node *inOrderSuccessor(struct Node *root, int key)
+{
+    if (!root)
+        return root;
+
+    struct Node *successor = NULL;
+    while (root)
+    {
+        if (root->data > key)
+            successor = root, root = root->left;
+        else if (root->data < key)
+            root = root->right;
+        else
+        {
+            if (root->right)
+            {
+                root = root->right;
+                while (root->left)
+                    root = root->left;
+                successor = root;
+            }
+            break;
+        }
+    }
+    return successor;
 }
 
 void preOrderTraversal(struct Node *root) // Root -> Left subtree -> Right subtree
 {
-    if (!root) // Guard clause
-        return;
-
-    printf("%d ", root->data);
-    preOrderTraversal(root->left);
-    preOrderTraversal(root->right);
+    if (root)
+    {
+        printf("%d ", root->data);
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
 }
 
 void inOrderTraversal(struct Node *root) // Left subtree -> Root -> Right subtree
 {
-    if (!root) // Guard clause
-        return;
-
-    inOrderTraversal(root->left);
-    printf("%d ", root->data);
-    inOrderTraversal(root->right);
+    if (root)
+    {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
 }
 
 void postOrderTraversal(struct Node *root) // Right subtree -> Left subtree -> Root
 {
-    if (!root) // Guard clause
-        return;
-
-    postOrderTraversal(root->left);
-    postOrderTraversal(root->right);
-    printf("%d ", root->data);
+    if (root)
+    {
+        postOrderTraversal(root->left);
+        postOrderTraversal(root->right);
+        printf("%d ", root->data);
+    }
 }
