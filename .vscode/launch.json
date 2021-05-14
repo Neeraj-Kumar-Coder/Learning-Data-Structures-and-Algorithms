@@ -8,7 +8,7 @@
             "name": "Heap Sort",
             "type": "cppdbg",
             "request": "launch",
-            "program": "C:\\Neeraj Kumar\\Learning Data Structures and Algorithms\\HeapSort.exe",
+            "program": "C:\\Neeraj Kumar\\Learning Data Structures and Algorithms\\Merge_K_Sorted_Array.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
