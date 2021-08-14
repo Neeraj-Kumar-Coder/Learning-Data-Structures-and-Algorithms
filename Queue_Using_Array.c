@@ -25,13 +25,17 @@ int main(void)
     struct queue *member = create_queue(10);
     printf("Is empty = %d\n", isEmpty(member));
     printf("Is full = %d\n", isFull(member));
-    enqueue(member, 5);
-    enqueue(member, 51);
-    enqueue(member, 17);
-    printf("The dequeue element is = %d\n", dequeue(member));
-    printf("Is empty = %d\n", isEmpty(member));
-    printf("Is full = %d\n", isFull(member));
-    printf("The peeked element is = %d\n", peek(member, 1));
+    int number, key;
+    printf("Enter the number of elements you want to enqueue: ");
+    scanf("%d", &number);
+    while (number--)
+    {
+        printf("Enter the element: ");
+        scanf("%d", &key);
+        enqueue(member, key);
+    }
+    printf("The dequeued element is: %d\n", dequeue(member));
+    printf("The dequeued element is: %d\n", dequeue(member));
     return 0;
 }
 

@@ -22,19 +22,14 @@ int main(void)
     scanf("%d", &node->heap_size);
     for (int i = 0; i < node->heap_size; i++)
     {
-        printf("Enter the value: ");
+        printf("Enter Element %d: ", i + 1);
         scanf("%d", &node->harr[i]);
     }
-
-    int size = node->heap_size;
 
     buildMaxHeap(node);
     // heapSort(node);
     heapSortIterative(node);
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d ", node->harr[i]);
-    }
+    print_heap(node);
     return 0;
 }
 

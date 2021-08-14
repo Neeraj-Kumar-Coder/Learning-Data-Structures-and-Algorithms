@@ -11,6 +11,7 @@ void traverse(struct Node *ptr);
 struct Node *insert(struct Node *head, struct Node *ptr, int index);
 struct Node *del(struct Node *head, int index);
 int length(struct Node *head);
+void printReverse(struct Node *ptr);
 
 int main(void)
 {
@@ -42,7 +43,17 @@ int main(void)
     traverse(head);
 
     printf("The length of the linked list is = %d\n", length(head));
+    printReverse(head);
+    printf("NULL\n");
     return 0;
+}
+
+void printReverse(struct Node *ptr)
+{
+    if (!ptr)
+        return;
+    printReverse(ptr->next);
+    printf("%d->", ptr->data);
 }
 
 void traverse(struct Node *ptr)

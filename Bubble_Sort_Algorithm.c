@@ -15,7 +15,8 @@ void print_array(int *array, int size);
 
 int main(void)
 {
-    int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
+    // int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
+    int array[] = {8, 22, 7, 9, 31, 5, 13};
     // int array[] = {2, 3, 4, 4, 5, 7, 21, 23, 34, 54, 54, 67, 76, 87}; // Already sorted array
     int size = sizeof(array) / sizeof(int);
     bubbleSort(array, size);
@@ -38,6 +39,7 @@ void bubbleSort(int arr[], int size)
                 arr[j + 1] = arr[j] - arr[j + 1];
                 arr[j] = arr[j] - arr[j + 1];
                 isSorted = 0; // To make it adaptive
+                print_array(arr, size);
             }
         }
         if (isSorted) // To make it adaptive

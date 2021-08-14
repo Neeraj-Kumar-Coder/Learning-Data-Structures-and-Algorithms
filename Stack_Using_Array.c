@@ -28,44 +28,20 @@ int main(void)
 
     struct stack *member = create_stack(size);
 
-    if (is_empty(member))
-    {
-        printf("Stack is empty!\n");
-    }
-    else
-    {
-        printf("Stack is not empty\n");
-    }
-
     int number_of_elements;
     printf("Enter the number of elements you want to add: ");
     scanf("%d", &number_of_elements);
 
+    int temp;
     for (int i = 0; i < number_of_elements; i++)
     {
-        int temp;
         printf("Enter the element: ");
         scanf("%d", &temp);
         push(member, temp);
     }
 
-    pop(member);
-
-    for (int i = 0; i <= member->top; i++)
-    {
-        printf("%d ", member->array[i]);
-    }
-
-    printf("\n");
-
-    if (is_empty(member))
-    {
-        printf("Stack is empty!\n");
-    }
-    else
-    {
-        printf("Stack is not empty\n");
-    }
+    printf("The popped element is: %d\n", pop(member));
+    printf("The popped element is: %d\n", pop(member));
 
     return 0;
 }

@@ -143,4 +143,5 @@ void print_hash(struct Hash *ptr)
         }
         printf("\n");
     }
+    printf("Value of Load Factor = %f\n", (float)ptr->hash_size / TABLE_SIZE);
 }

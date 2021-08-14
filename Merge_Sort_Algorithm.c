@@ -16,8 +16,8 @@ void mergeSort(int array[], int low, int high);
 
 int main(void)
 {
-    int array[] = {5, 4, 3, 2, 1};
-    // int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
+    // int array[] = {5, 4, 3, 2, 1};
+    int array[] = {87, 76, 67, 54, 54, 34, 23, 21, 7, 5, 4, 4, 3, 2};
     // int array[] = {2, 3, 4, 4, 5, 7, 21, 23, 34, 54, 54, 67, 76, 87}; // Already sorted array
     int size = sizeof(array) / sizeof(int);
     mergeSort(array, 0, size - 1);
@@ -39,7 +39,7 @@ void mergeSort(int array[], int low, int high)
 void merge(int array[], int low, int mid, int high)
 {
     int *temp_array = (int *)malloc((high - low + 1) * sizeof(int));
-    int i = low, j = mid + 1, k = low;
+    int i = low, j = mid + 1, k = 0;
     while (i <= mid && j <= high)
     {
         if (array[i] < array[j])
@@ -59,10 +59,12 @@ void merge(int array[], int low, int mid, int high)
     {
         temp_array[k++] = array[j++];
     }
+    j = 0; // to reset the index to zero
     for (int i = low; i < high + 1; i++)
     {
-        array[i] = temp_array[i];
+        array[i] = temp_array[j++];
     }
+    free(temp_array);
 }
 
 void print_array(int *array, int size)
