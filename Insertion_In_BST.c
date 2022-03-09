@@ -22,6 +22,7 @@ int search_recursive(struct Node *root, int value);
 int search_iterative(struct Node *root, int valued);
 void insert(struct Node *root, int key);
 void inOrderTraversal(struct Node *root);
+void deleteBST(struct Node *root);
 
 int main(void)
 {
@@ -57,6 +58,7 @@ int main(void)
     printf("After insertion: ");
     inOrderTraversal(root);
     printf("\n");
+    deleteBST(root);
     return 0;
 }
 
@@ -161,5 +163,15 @@ void inOrderTraversal(struct Node *root)
         inOrderTraversal(root->left);
         printf("%d ", root->data);
         inOrderTraversal(root->right);
+    }
+}
+
+void deleteBST(struct Node *root)
+{
+    if (root)
+    {
+        deleteBST(root->left);
+        deleteBST(root->right);
+        free(root);
     }
 }
