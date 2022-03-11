@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-#define MOD 1000000007
+#define MOD 1000000007ULL
 
 using namespace std;
 
