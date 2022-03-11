@@ -2,15 +2,17 @@
 #include <iostream>
 #include <vector>
 
+#define MOD 1000000007
+
 using namespace std;
 
-size_t NthFibonacci(unsigned int);
+size_t NthFibonacci(size_t);
 vector<vector<size_t>> multiply(vector<vector<size_t>> &, vector<vector<size_t>> &);
 vector<vector<size_t>> matrix_exponentiation(vector<vector<size_t>> &, size_t);
 
 int main(void)
 {
-    unsigned int term;
+    size_t term;
     cout << "Enter the term which you want to know in Fibonacci Series: ";
     cin >> term;
     cout << "O(n) Term number " << term << " is: " << NthFibonacci(term) << '\n';
@@ -19,20 +21,30 @@ int main(void)
     return 0;
 }
 
-// Time Complexity: O(n)
-size_t NthFibonacci(unsigned int term)
+/**
+ * @brief Time Complexity: O(n)
+ * @param term The fibonacci term you want to find (starting from 0)
+ * @return The required fibonacci number
+ **/
+size_t NthFibonacci(size_t term)
 {
     size_t previous = 0, current = 1, tempCurrent;
     while (term--)
     {
         tempCurrent = current;
         current += previous;
+        current %= MOD;
         previous = tempCurrent;
     }
-    return current;
+    return current % MOD;
 }
 
-// Time Complexity: O(log n)
+/**
+ * @brief Time Complexity: O(1). It is contant time complexity because it works on matrix of size 3x3 only
+ * @param mat1 The first matrix
+ * @param mat2 The second matrix
+ * @return The result after matrix multiplication
+ **/
 vector<vector<size_t>> multiply(vector<vector<size_t>> &mat1, vector<vector<size_t>> &mat2)
 {
     size_t dimension = mat1.size();
@@ -40,19 +52,28 @@ vector<vector<size_t>> multiply(vector<vector<size_t>> &mat1, vector<vector<size
     for (size_t i = 0; i < dimension; i++)
         for (size_t j = 0; j < dimension; j++)
             for (size_t k = 0; k < dimension; k++)
-                result[i][j] += mat1[i][k] * mat2[k][j];
+                result[i][j] += (mat1[i][k] % MOD * mat2[k][j] % MOD) % MOD, result[i][j] %= MOD;
     return result;
 }
 
+/**
+ * @brief Time Complexity: O(log n)
+ * @param mat The matrix to exponentiate
+ * @param exp The exponent of the matrix
+ * @return The result after exponentiating the given matrix
+ **/
 vector<vector<size_t>> matrix_exponentiation(vector<vector<size_t>> &mat, size_t exp)
 {
-    if (exp == 0)
-        return {{1, 0}, {0, 1}};
+    vector<vector<size_t>> result = {{1, 0}, {0, 1}};
+    vector<vector<size_t>> temp = mat;
 
-    vector<vector<size_t>> temp = matrix_exponentiation(mat, exp / 2);
-    vector<vector<size_t>> result = multiply(temp, temp);
-    if (exp & 1)
-        result = multiply(result, mat);
+    while (exp)
+    {
+        if (exp & 1)
+            result = multiply(result, temp);
+        temp = multiply(temp, temp);
+        exp >>= 1;
+    }
 
     return result;
 }
