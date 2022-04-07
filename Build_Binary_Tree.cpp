@@ -29,7 +29,6 @@ public:
                 break;
 
         int sizeofleftsubtree = i - il;
-        int sizeofrightsubtree = ih - i;
         root->left = buildTreeUtil(inorder, postorder, il, i - 1, pl, pl + sizeofleftsubtree - 1);
         root->right = buildTreeUtil(inorder, postorder, i + 1, ih, pl + sizeofleftsubtree, ph - 1);
 
