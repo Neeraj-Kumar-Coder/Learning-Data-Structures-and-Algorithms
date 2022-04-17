@@ -63,12 +63,17 @@ public:
 
 int main(void)
 {
-    N_Queen obj;
-    if (!obj.solve())
+    N_Queen *obj;
+    int size_of_board;
+    cout << "Enter the size of the board: ";
+    cin >> size_of_board;
+    obj = new N_Queen(size_of_board);
+    cout << "The Solution of the " << size_of_board << "-Queens problem is:\n";
+    if (!obj->solve())
         cout << "The problem cannot be solved!\n";
     else
     {
-        vector<vector<int>> answer = obj.get_board();
+        vector<vector<int>> answer = obj->get_board();
         for (auto &&i : answer)
         {
             for (auto &&x : i)
@@ -81,5 +86,6 @@ int main(void)
             cout << '\n';
         }
     }
+    delete obj;
     return 0;
 }
