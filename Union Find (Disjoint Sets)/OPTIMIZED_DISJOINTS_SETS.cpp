@@ -1,4 +1,4 @@
-// https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3840/
+// https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3843/
 #include <iostream>
 #include <vector>
 #include <iomanip>
@@ -9,9 +9,10 @@ class Union_Find
 {
 private:
     vector<int> parent;
+    vector<int> rank;
 
 public:
-    Union_Find(int size) : parent(size)
+    Union_Find(int size) : parent(size), rank(size, 1)
     {
         for (int i = 0; i < size; i++)
         {
@@ -21,11 +22,9 @@ public:
 
     int Find(int x)
     {
-        while (parent[x] != x)
-        {
-            x = parent[x];
-        }
-        return x;
+        if (parent[x] == x)
+            return x;
+        return parent[x] = Find(parent[x]);
     }
 
     void Union(int x, int y)
@@ -33,13 +32,25 @@ public:
         int root_x = Find(x);
         int root_y = Find(y);
 
-        if (root_x != root_y)
+        if (root_x == root_y)
+            return;
+
+        if (rank[root_x] > rank[root_y])
         {
             parent[root_y] = root_x;
         }
+        else if (rank[root_x] < rank[root_y])
+        {
+            parent[root_x] = root_y;
+        }
+        else
+        {
+            parent[root_y] = root_x;
+            rank[root_x] += 1;
+        }
     }
 
-    bool connected(int x, int y)
+    bool Connected(int x, int y)
     {
         return Find(x) == Find(y);
     }
@@ -47,7 +58,12 @@ public:
 
 int main(void)
 {
-    Union_Find uf(7);
+    int size;
+    cout << "Enter the number of vertices in the graph: ";
+    cin >> size;
+
+    Union_Find uf(size);
+
     while (true)
     {
         int choice;
@@ -68,7 +84,7 @@ int main(void)
             int x;
             cout << "Enter x to find root: ";
             cin >> x;
-            uf.Find(x);
+            cout << "The root of " << x << " is = " << uf.Find(x) << '\n';
             break;
         }
         case 3:
@@ -76,7 +92,7 @@ int main(void)
             int x, y;
             cout << "Enter x and y to check for connectivity: ";
             cin >> x >> y;
-            cout << boolalpha << "Connectivity status: " << uf.connected(x, y) << '\n';
+            cout << boolalpha << "Connectivity status: " << uf.Connected(x, y) << '\n';
             break;
         }
         case 4:
