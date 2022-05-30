@@ -10,9 +10,10 @@ class Union_Find
 private:
     vector<int> parent;
     vector<int> rank;
+    int count;
 
 public:
-    Union_Find(int size) : parent(size), rank(size, 1)
+    Union_Find(int size) : parent(size), rank(size, 1), count(size)
     {
         for (int i = 0; i < size; i++)
         {
@@ -48,11 +49,17 @@ public:
             parent[root_y] = root_x;
             rank[root_x] += 1;
         }
+        count--;
     }
 
     bool Connected(int x, int y)
     {
         return Find(x) == Find(y);
+    }
+
+    int getCount(void)
+    {
+        return count;
     }
 };
 
