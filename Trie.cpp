@@ -19,10 +19,10 @@ private:
 public:
     Trie(void) : root(new TrieNode()) {}
 
-    void insert(const string &target)
+    void insertWord(const string &word)
     {
         TrieNode *current = root;
-        for (auto &&ch : target)
+        for (auto &&ch : word)
         {
             if (current->children.find(ch) == current->children.end())
             {
@@ -44,7 +44,6 @@ public:
             }
             current = current->children[ch];
         }
-
         return isWord ? current->isWord : true;
     }
 };
@@ -61,7 +60,7 @@ int main(void)
     {
         cout << "Enter the word: ";
         cin >> str;
-        myTrie.insert(str);
+        myTrie.insertWord(str);
     }
 
     cout << "Enter the number of operations you want to perform: ";
