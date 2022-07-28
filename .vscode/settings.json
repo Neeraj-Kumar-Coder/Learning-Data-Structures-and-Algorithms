@@ -93,6 +93,7 @@
         "valarray": "cpp",
         "variant": "cpp",
         "corecrt.h": "c",
-        "_mingw.h": "c"
+        "_mingw.h": "c",
+        "cassert": "cpp"
     }
 }
