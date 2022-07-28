@@ -25,59 +25,47 @@ public:
     double getComplex(void) { return this->complexPart; }
 
     friend ostream &operator<<(ostream &, const Complex &);
-    friend Complex operator~(const Complex &);
-    friend Complex operator+(const Complex &, const Complex &);
-    friend Complex operator-(const Complex &, const Complex &);
-    friend Complex operator*(const Complex &, const Complex &);
-    friend Complex operator/(const Complex &, const Complex &);
-    Complex operator=(const Complex &);
+    Complex operator~(void)
+    {
+        Complex result(this->realPart, -this->complexPart);
+        return result;
+    }
+    Complex operator+(const Complex &object)
+    {
+        Complex result(this->realPart + object.realPart, this->complexPart + object.complexPart);
+        return result;
+    }
+    Complex operator-(const Complex &object)
+    {
+        Complex result(this->realPart - object.realPart, this->complexPart - object.complexPart);
+        return result;
+    }
+    Complex operator*(const Complex &object)
+    {
+        double a = this->realPart, b = this->complexPart, c = object.realPart, d = object.complexPart;
+        Complex result(a * c - b * d, a * d + b * c);
+        return result;
+    }
+    Complex operator/(Complex &object)
+    {
+        Complex result = *this * ~object;
+        double denominator = (object * ~object).realPart;
+        result.realPart /= denominator;
+        result.complexPart /= denominator;
+        return result;
+    }
+    Complex operator=(const Complex &object)
+    {
+        this->realPart = object.realPart;
+        this->complexPart = object.complexPart;
+        return *this;
+    }
 };
 
 ostream &operator<<(ostream &out, const Complex &object)
 {
     out << object.realPart << " + " << object.complexPart << "i";
     return out;
-}
-
-Complex operator~(const Complex &object)
-{
-    Complex result(object.realPart, -object.complexPart);
-    return result;
-}
-
-Complex operator+(const Complex &object_1, const Complex &object_2)
-{
-    Complex result(object_1.realPart + object_2.realPart, object_1.complexPart + object_2.complexPart);
-    return result;
-}
-
-Complex operator-(const Complex &object_1, const Complex &object_2)
-{
-    Complex result(object_1.realPart - object_2.realPart, object_1.complexPart - object_2.complexPart);
-    return result;
-}
-
-Complex operator*(const Complex &object_1, const Complex &object_2)
-{
-    double a = object_1.realPart, b = object_1.complexPart, c = object_2.realPart, d = object_2.complexPart;
-    Complex result(a * c - b * d, a * d + b * c);
-    return result;
-}
-
-Complex operator/(const Complex &object_1, const Complex &object_2)
-{
-    Complex result = object_1 * ~object_2;
-    double denominator = (object_2 * ~object_2).realPart;
-    result.realPart /= denominator;
-    result.complexPart /= denominator;
-    return result;
-}
-
-Complex Complex::operator=(const Complex &object)
-{
-    this->realPart = object.realPart;
-    this->complexPart = object.complexPart;
-    return *this;
 }
 
 int main(void)
