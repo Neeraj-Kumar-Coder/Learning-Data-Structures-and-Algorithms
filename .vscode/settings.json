@@ -94,6 +94,9 @@
         "variant": "cpp",
         "corecrt.h": "c",
         "_mingw.h": "c",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "expected": "cpp",
+        "spanstream": "cpp",
+        "stacktrace": "cpp"
     }
 }
