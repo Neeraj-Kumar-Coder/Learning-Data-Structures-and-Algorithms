@@ -1,65 +1,36 @@
-#include <iostream>
-#include <vector>
-#include <climits>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int maxRow, maxColumn;
-
 int main(void)
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    char ch;
-    cin >> maxRow >> maxColumn;
-    int limit = 2 * max(maxRow, maxColumn);
-    vector<vector<int>> countOfOnes(limit, vector<int>(limit, 0));
-    for (int i = 0; i < maxRow; i++)
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    int pos = 0, neg = 0;
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < maxColumn; j++)
-        {
-            cin >> ch;
-            if (ch == '1')
-                countOfOnes[i][j]++;
-        }
+        cin >> arr[i];
+        if (arr[i] >= 0)
+            pos++;
+        else
+            neg++;
     }
 
-    for (int i = 0; i < limit; i++)
+    sort(arr.begin(), arr.end());
+    int minimum = INT_MAX;
+    if (pos == neg)
     {
-        for (int j = 0; j < limit; j++)
+        int low = 0, high = n / 2;
+        while (high < n)
         {
-            if (i - 1 >= 0)
-                countOfOnes[i][j] += countOfOnes[i - 1][j];
-            if (j - 1 >= 0)
-                countOfOnes[i][j] += countOfOnes[i][j - 1];
-            if (i - 1 >= 0 && j - 1 >= 0)
-                countOfOnes[i][j] -= countOfOnes[i - 1][j - 1];
+            minimum = min(minimum, arr[low++] * arr[high++]);
         }
     }
-
-    int temp, minimumToggles = INT_MAX, row, column, oneCount;
-    for (int k = 2; k < limit / 2; k++)
+    else
     {
-        temp = 0;
-        for (int i = 0; i < maxRow; i += k)
-        {
-            for (int j = 0; j < maxColumn; j += k)
-            {
-                row = i + k - 1;
-                column = j + k - 1;
-                oneCount = countOfOnes[row][column];
-                if (i)
-                    oneCount -= countOfOnes[row - k][column];
-                if (j)
-                    oneCount -= countOfOnes[row][column - k];
-                if (i && j)
-                    oneCount += countOfOnes[i - 1][j - 1];
-                temp += min(oneCount, k * k - oneCount);
-            }
-        }
-        minimumToggles = min(minimumToggles, temp);
+        minimum = arr[n / 2] * arr[n / 2 - 1];
     }
-
-    cout << minimumToggles << '\n';
+    cout << minimum << '\n';
     return 0;
 }
